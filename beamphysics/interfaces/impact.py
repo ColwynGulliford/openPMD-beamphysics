@@ -5,7 +5,6 @@ import numpy as np
 from numpy import pi
 from scipy import fft
 
-from ..fields.expansion import spline_derivative_array
 
 c_light = 299792458.0
 
@@ -645,6 +644,8 @@ def create_impact_solrf_fieldmap_derivatives(
             field[component]["derivative_array"] = np.array([[0, 0, 0, 0]])
 
         else:
+            from ..fields.expansion import spline_derivative_array
+
             darray = spline_derivative_array(z, fz, s=spline_s, k=spline_k)
 
             # Scale
