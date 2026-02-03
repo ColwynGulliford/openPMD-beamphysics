@@ -1,5 +1,5 @@
-from pmd_beamphysics.fields.corrector_modeling import make_dipole_corrector_fieldmesh
-from pmd_beamphysics import FieldMesh
+from beamphysics.fields.corrector_modeling import make_dipole_corrector_fieldmesh
+from beamphysics import FieldMesh
 import numpy as np
 import tempfile
 

@@ -18,7 +18,6 @@ from .interfaces.genesis import (
     write_genesis4_distribution,
 )
 from .interfaces.gpt import write_gpt
-from .interfaces.impact import write_impact
 from .interfaces.litrack import write_litrack
 from .interfaces.lucretia import write_lucretia
 from .interfaces.opal import write_opal
@@ -956,6 +955,8 @@ class ParticleGroup:
         include_header=True,
         verbose=False,
     ):
+        from .interfaces.impact import write_impact
+
         return write_impact(
             self,
             filePath,

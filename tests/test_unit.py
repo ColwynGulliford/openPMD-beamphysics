@@ -1,7 +1,7 @@
 from __future__ import annotations
 import numpy as np
 import pytest
-from pmd_beamphysics.units import (
+from beamphysics.units import (
     SHORT_PREFIX_FACTOR,
     dimension,
     nice_array,

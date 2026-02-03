@@ -18,7 +18,7 @@ from pathlib import Path
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
-from pmd_beamphysics.standards.statistics import (  # noqa: E402
+from beamphysics.standards.statistics import (  # noqa: E402
     export_computed_statistics,
     load_computed_statistics,
 )

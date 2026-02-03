@@ -4,7 +4,7 @@ Tests for the statistics standard schema validation.
 
 import pytest
 
-from pmd_beamphysics.standards.statistics import (
+from beamphysics.standards.statistics import (
     YAML_PATH,
     load_standard,
     validate_standard,
@@ -150,7 +150,7 @@ class TestComputedStatistics:
     @pytest.fixture
     def computed(self):
         """Load computed statistics."""
-        from pmd_beamphysics.standards.statistics import load_computed_statistics
+        from beamphysics.standards.statistics import load_computed_statistics
 
         return load_computed_statistics()
 
@@ -175,7 +175,7 @@ class TestComputedStatistics:
 
     def test_operator_statistics_format(self, computed):
         """Test that operator statistics have correct format."""
-        from pmd_beamphysics.standards.statistics import get_computed_statistic
+        from beamphysics.standards.statistics import get_computed_statistic
 
         stat = get_computed_statistic("sigma_x")
         assert stat is not None
@@ -189,7 +189,7 @@ class TestComputedStatistics:
 
     def test_covariance_statistics_format(self, computed):
         """Test that covariance statistics have correct format."""
-        from pmd_beamphysics.standards.statistics import get_computed_statistic
+        from beamphysics.standards.statistics import get_computed_statistic
 
         stat = get_computed_statistic("cov_x__px")
         assert stat is not None
@@ -202,14 +202,14 @@ class TestComputedStatistics:
 
     def test_get_computed_statistic_not_found(self):
         """Test that get_computed_statistic returns None for unknown labels."""
-        from pmd_beamphysics.standards.statistics import get_computed_statistic
+        from beamphysics.standards.statistics import get_computed_statistic
 
         stat = get_computed_statistic("nonexistent_computed_stat")
         assert stat is None
 
     def test_computed_is_cached(self):
         """Test that computed statistics are cached (same object returned)."""
-        from pmd_beamphysics.standards.statistics import load_computed_statistics
+        from beamphysics.standards.statistics import load_computed_statistics
 
         computed1 = load_computed_statistics()
         computed2 = load_computed_statistics()
@@ -221,8 +221,8 @@ class TestUnitsParsingWithPmdUnit:
 
     def test_base_statistics_units_parseable(self):
         """Test that all base statistics units can be parsed by pmd_unit."""
-        from pmd_beamphysics.standards.statistics import load_standard
-        from pmd_beamphysics.units import pmd_unit
+        from beamphysics.standards.statistics import load_standard
+        from beamphysics.units import pmd_unit
 
         standard = load_standard()
         failed = []
@@ -240,8 +240,8 @@ class TestUnitsParsingWithPmdUnit:
 
     def test_computed_statistics_units_parseable(self):
         """Test that all computed statistics units can be parsed by pmd_unit."""
-        from pmd_beamphysics.standards.statistics import load_computed_statistics
-        from pmd_beamphysics.units import pmd_unit
+        from beamphysics.standards.statistics import load_computed_statistics
+        from beamphysics.units import pmd_unit
 
         computed = load_computed_statistics()
         failed = []
