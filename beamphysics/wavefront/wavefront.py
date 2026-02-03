@@ -17,15 +17,15 @@ import pathlib
 import matplotlib.pyplot as plt
 from matplotlib.colors import LogNorm
 
-from pmd_beamphysics.statistics import mean_calc, mean_variance_calc
-from pmd_beamphysics.plot import plot_1d_density, plot_2d_density_with_marginals
-from pmd_beamphysics.units import Z0, c_light
-from pmd_beamphysics.interfaces.genesis import (
+from ..statistics import mean_calc, mean_variance_calc
+from ..plot import plot_1d_density, plot_2d_density_with_marginals
+from ..units import Z0, c_light
+from ..interfaces.genesis import (
     wavefront_write_genesis4,
     load_genesis4_fields,
 )
 
-from pmd_beamphysics.wavefront.propagators import drift_wavefront
+from ..wavefront.propagators import drift_wavefront
 
 
 def fftfreq_max(n, d=1.0):

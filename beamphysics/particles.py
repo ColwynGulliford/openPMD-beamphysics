@@ -1216,7 +1216,7 @@ class ParticleGroup:
         --------
         ::
 
-            from pmd_beamphysics.wakefields import ResistiveWallWakefield
+            from beamphysics.wakefields import ResistiveWallWakefield
             wake = ResistiveWallWakefield.from_material("copper-slac-pub-10707", radius=2.5e-3)
             P_after = P.apply_wakefield(wake, length=10.0)
         """

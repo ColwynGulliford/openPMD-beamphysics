@@ -6,7 +6,7 @@ from the particle beam statistics standard defined in statistics_standard.yaml.
 
 Example usage:
 
-    from pmd_beamphysics.statistics_standard import load_standard, validate_standard
+    from beamphysics.standards.statistics import load_standard, validate_standard
 
     standard = load_standard()
     errors = validate_standard(standard)
@@ -18,7 +18,10 @@ from typing import Any, Dict, List, Optional, Union
 
 import yaml
 
-from pmd_beamphysics.units import pmd_unit
+from ..units import pmd_unit
+from ..particles import ParticleGroup
+import numpy as np
+
 
 __all__ = [
     "YAML_PATH",
@@ -222,9 +225,6 @@ def validate_against_particlegroup(standard: Dict[str, Any]) -> List[str]:
     warnings = []
 
     try:
-        from pmd_beamphysics import ParticleGroup
-        import numpy as np
-
         # Create a minimal ParticleGroup for introspection
         data = {
             "x": np.array([0.0]),

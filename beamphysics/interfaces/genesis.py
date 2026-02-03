@@ -3,8 +3,8 @@ import os
 import numpy as np
 from h5py import File, Group
 
-from pmd_beamphysics.statistics import twiss_calc
-from pmd_beamphysics.units import c_light, mec2, unit, write_unit_h5, Z0
+from ..statistics import twiss_calc
+from ..units import c_light, mec2, unit, write_unit_h5, Z0
 
 # Genesis 1.3
 # -------------

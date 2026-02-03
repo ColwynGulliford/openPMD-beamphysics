@@ -5,8 +5,8 @@ from scipy.integrate import quad
 from scipy.optimize import curve_fit
 from scipy.special import ellipe, ellipk
 
-from pmd_beamphysics import FieldMesh
-from pmd_beamphysics.units import mu_0
+from ..fields import FieldMesh
+from ..units import mu_0
 
 
 def C_full(kc: float, p: float, c: float, s: float) -> float:

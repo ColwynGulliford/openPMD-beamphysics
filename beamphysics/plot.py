@@ -17,7 +17,14 @@ from mpl_toolkits.axes_grid1 import make_axes_locatable
 
 from .labels import mathlabel
 from .statistics import slice_statistics, twiss_ellipse_points
-from .units import nice_array, nice_scale_prefix, plottable_array, pg_units, c_light
+from .units import (
+    nice_array,
+    nice_scale_prefix,
+    plottable_array,
+    pg_units,
+    c_light,
+    pmd_unit,
+)
 
 CMAP0 = copy(plt.get_cmap("viridis"))
 CMAP0.set_under("white")
@@ -1259,8 +1266,6 @@ def plot_1d_density(
         # CDF has units of y_base * x_base with combined prefix
         if x_units_base and y_units_base:
             try:
-                from pmd_beamphysics.units import pmd_unit
-
                 cdf_units_base = (
                     pmd_unit(y_units_base) * pmd_unit(x_units_base)
                 ).simplify()
