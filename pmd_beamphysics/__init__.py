@@ -1,6 +1,6 @@
 from .fields.fieldmesh import FieldMesh
 from .particles import ParticleGroup, single_particle
-from .wavefront.wavefront import Wavefront, WavefrontK
+from .wavefront import Wavefront, WavefrontK
 from .readers import particle_paths
 from .status import ParticleStatus
 from .writers import pmd_init
