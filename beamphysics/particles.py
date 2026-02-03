@@ -2,7 +2,7 @@ import functools
 import os
 import pathlib
 from copy import deepcopy
-from typing import Union, Sequence
+from typing import Sequence, Union
 
 import numpy as np
 from h5py import File
@@ -35,9 +35,9 @@ from .statistics import (
     slice_statistics,
 )
 from .units import c_light, parse_bunching_str, pg_units
+from .utils import get_rotation_matrix
 from .wakefields import WakefieldBase
 from .writers import pmd_init, write_pmd_bunch
-from .utils import get_rotation_matrix
 
 # -----------------------------------------
 # Classes

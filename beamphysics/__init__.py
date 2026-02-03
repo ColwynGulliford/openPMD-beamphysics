@@ -1,8 +1,8 @@
 from .fields import FieldMesh
 from .particles import ParticleGroup, single_particle
-from .wavefront import Wavefront, WavefrontK
 from .readers import particle_paths
 from .status import ParticleStatus
+from .wavefront import Wavefront, WavefrontK
 from .writers import pmd_init
 
 try:

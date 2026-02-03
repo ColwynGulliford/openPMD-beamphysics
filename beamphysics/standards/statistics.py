@@ -16,12 +16,11 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Union
 
+import numpy as np
 import yaml
 
-from ..units import pmd_unit
 from ..particles import ParticleGroup
-import numpy as np
-
+from ..units import pmd_unit
 
 __all__ = [
     "YAML_PATH",

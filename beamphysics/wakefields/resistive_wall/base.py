@@ -37,7 +37,7 @@ from enum import Enum
 import numpy as np
 from scipy.integrate import quad, quad_vec
 
-from ...units import c_light, Z0
+from ...units import Z0, c_light
 from ..base import WakefieldBase
 
 

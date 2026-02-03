@@ -4,7 +4,7 @@ import numpy as np
 from h5py import File, Group
 
 from ..statistics import twiss_calc
-from ..units import c_light, mec2, unit, write_unit_h5, Z0
+from ..units import Z0, c_light, mec2, unit, write_unit_h5
 
 # Genesis 1.3
 # -------------

@@ -1,16 +1,15 @@
 """ """
 
 from copy import copy
-from typing import Optional, Tuple, Dict, List, Union
+from typing import Dict, List, Optional, Tuple, Union
 
-import numpy as np
 import matplotlib
 import matplotlib.pyplot as plt
-
-from matplotlib.figure import Figure
+import numpy as np
 from matplotlib.axes import Axes
-from matplotlib.gridspec import GridSpec
 from matplotlib.colors import LogNorm, Normalize, TwoSlopeNorm
+from matplotlib.figure import Figure
+from matplotlib.gridspec import GridSpec
 
 # For field legends
 from mpl_toolkits.axes_grid1 import make_axes_locatable
@@ -18,11 +17,11 @@ from mpl_toolkits.axes_grid1 import make_axes_locatable
 from .labels import mathlabel
 from .statistics import slice_statistics, twiss_ellipse_points
 from .units import (
+    c_light,
     nice_array,
     nice_scale_prefix,
-    plottable_array,
     pg_units,
-    c_light,
+    plottable_array,
     pmd_unit,
 )
 

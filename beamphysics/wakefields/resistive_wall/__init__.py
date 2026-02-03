@@ -51,23 +51,23 @@ References
 """
 
 from .base import (
+    Gammaf,
     Geometry,
+    Qr_flat,
+    Qr_round,
     ResistiveWallWakefieldBase,
+    ac_conductivity,
+    characteristic_length,
+    krs0_flat,
+    krs0_round,
+    longitudinal_impedance_flat,
+    longitudinal_impedance_round,
+    s0f,
     # Low-level functions
     sinhc,
-    ac_conductivity,
     surface_impedance,
-    longitudinal_impedance_round,
-    longitudinal_impedance_flat,
     wakefield_from_impedance,
     wakefield_from_impedance_fft,
-    characteristic_length,
-    s0f,
-    Gammaf,
-    krs0_round,
-    krs0_flat,
-    Qr_round,
-    Qr_flat,
 )
 from .impedance import ResistiveWallWakefield
 from .pseudomode import ResistiveWallPseudomode
