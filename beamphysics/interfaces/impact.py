@@ -361,7 +361,7 @@ def fourier_field_reconsruction(z, fcoefs, z0=0, zlen=1.0, order=0):
     """
     Field reconsruction from Impact-T style Fourier coefficents.
 
-    See: pmd_beamphysics.interfaces.impact.create_fourier_coefficients
+    See: `beamphysics.interfaces.impact.create_fourier_coefficients`
 
     Parameters
     ----------

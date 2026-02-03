@@ -62,7 +62,7 @@ class pmd_unit:
         * "energy"
         * "momentum"
 
-        For a full list, see `pmd_beamphysics.units.DIMENSION`.
+        For a full list, see `beamphysics.units.DIMENSION`.
 
     Notes
     -----

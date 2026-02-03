@@ -2,7 +2,7 @@
 """
 Generate statistics documentation from the YAML standard.
 
-This is a convenience wrapper around the pmd_beamphysics.statistics_standard module.
+This is a convenience wrapper around the `beamphysics.standards.statistics` module.
 
 Usage:
     python scripts/generate_statistics_docs.py [--validate] [--validate-code] [--output PATH]

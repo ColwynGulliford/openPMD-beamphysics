@@ -2,34 +2,34 @@
 
 ## Resistive Wall Wakefield Classes
 
-::: pmd_beamphysics.wakefields.ResistiveWallWakefield
+::: beamphysics.wakefields.ResistiveWallWakefield
 
-::: pmd_beamphysics.wakefields.ResistiveWallPseudomode
+::: beamphysics.wakefields.ResistiveWallPseudomode
 
 ## Base Classes
 
-::: pmd_beamphysics.wakefields.WakefieldBase
+::: beamphysics.wakefields.WakefieldBase
 
-::: pmd_beamphysics.wakefields.PseudomodeWakefield
+::: beamphysics.wakefields.PseudomodeWakefield
 
-::: pmd_beamphysics.wakefields.ImpedanceWakefield
+::: beamphysics.wakefields.ImpedanceWakefield
 
-::: pmd_beamphysics.wakefields.TabularWakefield
+::: beamphysics.wakefields.TabularWakefield
 
-::: pmd_beamphysics.wakefields.Pseudomode
+::: beamphysics.wakefields.Pseudomode
 
 ## Low-level Functions
 
-::: pmd_beamphysics.wakefields.longitudinal_impedance_round
+::: beamphysics.wakefields.longitudinal_impedance_round
 
-::: pmd_beamphysics.wakefields.longitudinal_impedance_flat
+::: beamphysics.wakefields.longitudinal_impedance_flat
 
-::: pmd_beamphysics.wakefields.wakefield_from_impedance
+::: beamphysics.wakefields.wakefield_from_impedance
 
-::: pmd_beamphysics.wakefields.wakefield_from_impedance_fft
+::: beamphysics.wakefields.wakefield_from_impedance_fft
 
-::: pmd_beamphysics.wakefields.ac_conductivity
+::: beamphysics.wakefields.ac_conductivity
 
-::: pmd_beamphysics.wakefields.surface_impedance
+::: beamphysics.wakefields.surface_impedance
 
-::: pmd_beamphysics.wakefields.characteristic_length
+::: beamphysics.wakefields.characteristic_length

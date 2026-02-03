@@ -24,7 +24,7 @@ def write_gpt(particle_group, outfile, asci2gdf_bin=None, verbose=False):
     q = particle_group.species_charge
     mc2 = (
         particle_group.mass
-    )  # returns pmd_beamphysics.species.mass_of(particle_group.species) [eV]
+    )  # returns beamphysics.species.mass_of(particle_group.species) [eV]
     m = mc2 * (e_charge / c_light**2)
     n = particle_group.n_particle
     gamma = particle_group.gamma
