@@ -6,8 +6,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pytest
 
-from pmd_beamphysics import ParticleGroup
-from pmd_beamphysics.particles import single_particle
+from beamphysics import ParticleGroup
+from beamphysics.particles import single_particle
 
 P = ParticleGroup("docs/examples/data/bmad_particles.h5")
 

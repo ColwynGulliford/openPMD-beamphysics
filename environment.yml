@@ -1,5 +1,5 @@
 # conda env create -f environment.yml
-name: pmd_beamphysics-dev
+name: beamphysics-dev
 channels:
   - conda-forge
 dependencies:

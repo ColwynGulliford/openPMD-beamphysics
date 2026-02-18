@@ -2,7 +2,7 @@ import functools
 import os
 import pathlib
 from copy import deepcopy
-from typing import Union, Sequence
+from typing import Sequence, Union
 
 import numpy as np
 from h5py import File
@@ -18,7 +18,6 @@ from .interfaces.genesis import (
     write_genesis4_distribution,
 )
 from .interfaces.gpt import write_gpt
-from .interfaces.impact import write_impact
 from .interfaces.litrack import write_litrack
 from .interfaces.lucretia import write_lucretia
 from .interfaces.opal import write_opal
@@ -36,9 +35,9 @@ from .statistics import (
     slice_statistics,
 )
 from .units import c_light, parse_bunching_str, pg_units
+from .utils import get_rotation_matrix
 from .wakefields import WakefieldBase
 from .writers import pmd_init, write_pmd_bunch
-from .utils import get_rotation_matrix
 
 # -----------------------------------------
 # Classes
@@ -956,6 +955,8 @@ class ParticleGroup:
         include_header=True,
         verbose=False,
     ):
+        from .interfaces.impact import write_impact
+
         return write_impact(
             self,
             filePath,
@@ -1216,7 +1217,7 @@ class ParticleGroup:
         --------
         ::
 
-            from pmd_beamphysics.wakefields import ResistiveWallWakefield
+            from beamphysics.wakefields import ResistiveWallWakefield
             wake = ResistiveWallWakefield.from_material("copper-slac-pub-10707", radius=2.5e-3)
             P_after = P.apply_wakefield(wake, length=10.0)
         """

@@ -1,8 +1,8 @@
 import matplotlib.pyplot as plt
 import pytest
-from pmd_beamphysics.wavefront.wavefront import Wavefront
+from beamphysics.wavefront.wavefront import Wavefront
 
-from pmd_beamphysics.wavefront.propagators import (
+from beamphysics.wavefront.propagators import (
     drift_wavefront,
     drift_wavefront_advanced,
 )

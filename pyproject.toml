@@ -40,11 +40,15 @@ Homepage = "https://github.com/ChristopherMayes/openPMD-beamphysics"
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["pmd_beamphysics*"]
+include = [
+  "beamphysics*",
+  # back-compat; to remove:
+  "pmd_beamphysics*",
+]
 namespaces = false
 
 [tool.setuptools.package-data]
-"pmd_beamphysics.standards" = ["statistics.yaml"]
+"beamphysics.standards" = ["statistics.yaml"]
 
 [project.license]
 file = "LICENSE"
@@ -54,10 +58,10 @@ file = "LICENSE"
 # ignore = []
 
 [tool.pytest.ini_options]
-addopts = "--cov=pmd_beamphysics/"
+addopts = "--cov=beamphysics/"
 log_cli_level = "INFO"
 log_level = "DEBUG"
 testpaths = ["tests"]
 
 [tool.setuptools_scm]
-version_file = "pmd_beamphysics/_version.py"
+version_file = "beamphysics/_version.py"

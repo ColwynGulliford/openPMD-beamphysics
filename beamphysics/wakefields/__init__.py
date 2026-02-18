@@ -32,22 +32,22 @@ resistive_wall
 from .base import WakefieldBase
 from .impedance import ImpedanceWakefield
 from .pseudomode import Pseudomode, PseudomodeWakefield
-from .tabular import TabularWakefield
 from .resistive_wall import (
     Geometry,
-    ResistiveWallWakefieldBase,
-    ResistiveWallWakefield,
     ResistiveWallPseudomode,
-    # Low-level impedance functions
-    sinhc,
+    ResistiveWallWakefield,
+    ResistiveWallWakefieldBase,
     ac_conductivity,
-    surface_impedance,
+    characteristic_length,
     longitudinal_impedance_flat,
     longitudinal_impedance_round,
+    # Low-level impedance functions
+    sinhc,
+    surface_impedance,
     wakefield_from_impedance,
     wakefield_from_impedance_fft,
-    characteristic_length,
 )
+from .tabular import TabularWakefield
 
 __all__ = [
     # Base classes

@@ -3,12 +3,12 @@
 Export computed statistics to a YAML file for inspection/debugging.
 
 This script uses the runtime-generated computed statistics from the
-pmd_beamphysics.standards.statistics module and exports them to a YAML file.
+`beamphysics.standards.statistics` module and exports them to a YAML file.
 
 Usage:
     python scripts/generate_computed_statistics.py [output_path]
 
-If no output path is specified, writes to pmd_beamphysics/standards/computed_statistics.yaml
+If no output path is specified, writes to `beamphysics/standards/computed_statistics.yaml`
 """
 
 import sys
@@ -18,7 +18,7 @@ from pathlib import Path
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
-from pmd_beamphysics.standards.statistics import (  # noqa: E402
+from beamphysics.standards.statistics import (  # noqa: E402
     export_computed_statistics,
     load_computed_statistics,
 )
@@ -30,7 +30,7 @@ def main():
         output_path = Path(sys.argv[1])
     else:
         output_path = (
-            project_root / "pmd_beamphysics" / "standards" / "computed_statistics.yaml"
+            project_root / "beamphysics" / "standards" / "computed_statistics.yaml"
         )
 
     print("Generating computed statistics...")

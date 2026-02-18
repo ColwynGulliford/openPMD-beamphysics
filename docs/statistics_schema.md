@@ -22,7 +22,7 @@ schema_version: "1.0"
 The statistics standard is defined in:
 
 ```
-pmd_beamphysics/statistics_standard/statistics_standard.yaml
+beamphysics/statistics_standard/statistics_standard.yaml
 ```
 
 ## Top-Level Structure
@@ -52,47 +52,47 @@ statistics:
 
 Categories group related statistics for organized documentation. Each category has:
 
-| Field | Type | Required | Description |
-|-------|------|----------|-------------|
-| `id` | string | Yes | Unique identifier used to reference from statistics |
-| `name` | string | Yes | Human-readable category name |
-| `description` | string | Yes | Brief description of the category |
+| Field         | Type   | Required | Description                                         |
+| ------------- | ------ | -------- | --------------------------------------------------- |
+| `id`          | string | Yes      | Unique identifier used to reference from statistics |
+| `name`        | string | Yes      | Human-readable category name                        |
+| `description` | string | Yes      | Brief description of the category                   |
 
 ### Standard Categories
 
-| ID | Name | Description |
-|----|------|-------------|
-| `coordinates` | Phase Space Coordinates | Basic position and momentum coordinates |
-| `time` | Time Coordinate | Time-related quantities |
-| `relativistic` | Relativistic Quantities | Energy, momentum, velocity factors |
-| `slopes` | Transverse Slopes | Angular divergence quantities |
-| `polar` | Polar/Cylindrical Coordinates | Cylindrical coordinate representations |
-| `normalized` | Normalized Coordinates | Courant-Snyder normalized coordinates |
-| `emittance` | Emittance | Phase space volume measures |
-| `twiss` | Twiss Parameters | Courant-Snyder lattice functions |
-| `beam` | Beam Properties | Integrated beam properties |
-| `particle` | Particle Properties | Individual particle properties |
+| ID             | Name                          | Description                             |
+| -------------- | ----------------------------- | --------------------------------------- |
+| `coordinates`  | Phase Space Coordinates       | Basic position and momentum coordinates |
+| `time`         | Time Coordinate               | Time-related quantities                 |
+| `relativistic` | Relativistic Quantities       | Energy, momentum, velocity factors      |
+| `slopes`       | Transverse Slopes             | Angular divergence quantities           |
+| `polar`        | Polar/Cylindrical Coordinates | Cylindrical coordinate representations  |
+| `normalized`   | Normalized Coordinates        | Courant-Snyder normalized coordinates   |
+| `emittance`    | Emittance                     | Phase space volume measures             |
+| `twiss`        | Twiss Parameters              | Courant-Snyder lattice functions        |
+| `beam`         | Beam Properties               | Integrated beam properties              |
+| `particle`     | Particle Properties           | Individual particle properties          |
 
 ## Statistics Entry Fields
 
 ### Required Fields
 
-| Field | Type | Description | Example |
-|-------|------|-------------|---------|
-| `label` | string | Code key used to access the statistic in ParticleGroup | `"norm_emit_x"` |
-| `mathlabel` | string | LaTeX string for mathematical symbol (without `$` delimiters) | `"\epsilon_{n,x}"` |
-| `units` | string | Unit string compatible with `pmd_unit` | `"m"`, `"eV/c"`, `"1"` |
-| `description` | string | Verbose human-readable description | `"Normalized RMS emittance..."` |
-| `reference` | string | Citation or reference for the definition | `"Courant & Snyder, Ann. Phys. 3 (1958)"` |
-| `category` | string | Category ID this statistic belongs to | `"emittance"` |
+| Field         | Type   | Description                                                   | Example                                   |
+| ------------- | ------ | ------------------------------------------------------------- | ----------------------------------------- |
+| `label`       | string | Code key used to access the statistic in ParticleGroup        | `"norm_emit_x"`                           |
+| `mathlabel`   | string | LaTeX string for mathematical symbol (without `$` delimiters) | `"\epsilon_{n,x}"`                        |
+| `units`       | string | Unit string compatible with `pmd_unit`                        | `"m"`, `"eV/c"`, `"1"`                    |
+| `description` | string | Verbose human-readable description                            | `"Normalized RMS emittance..."`           |
+| `reference`   | string | Citation or reference for the definition                      | `"Courant & Snyder, Ann. Phys. 3 (1958)"` |
+| `category`    | string | Category ID this statistic belongs to                         | `"emittance"`                             |
 
 ### Optional Fields
 
-| Field | Type | Description | Example |
-|-------|------|-------------|---------|
-| `formula` | string | LaTeX formula for derived quantities | `"\epsilon = \sqrt{\det(\Sigma)}"` |
-| `reference_url` | string | URL/DOI link to the reference | `"https://doi.org/10.1016/..."` |
-| `aliases` | list[string] | Alternative labels for the same quantity | `["emit_x", "emittance_x"]` |
+| Field           | Type         | Description                              | Example                            |
+| --------------- | ------------ | ---------------------------------------- | ---------------------------------- |
+| `formula`       | string       | LaTeX formula for derived quantities     | `"\epsilon = \sqrt{\det(\Sigma)}"` |
+| `reference_url` | string       | URL/DOI link to the reference            | `"https://doi.org/10.1016/..."`    |
+| `aliases`       | list[string] | Alternative labels for the same quantity | `["emit_x", "emittance_x"]`        |
 
 ## Field Validation Rules
 
@@ -181,10 +181,13 @@ To add a new statistic:
 3. Include `formula` if the quantity is derived from other quantities
 4. Add `reference_url` if a DOI or stable URL is available
 5. Run the validation script to check for errors:
+
    ```bash
    python scripts/generate_statistics_docs.py --validate
    ```
+
 6. Regenerate the documentation:
+
    ```bash
    python scripts/generate_statistics_docs.py
    ```
@@ -193,15 +196,15 @@ To add a new statistic:
 
 The `ParticleGroup` class supports computed statistics via bracket access with prefixes:
 
-| Prefix | Example | Computes |
-|--------|---------|----------|
-| `sigma_` | `P['sigma_x']` | Standard deviation |
-| `mean_` | `P['mean_x']` | Weighted average |
-| `min_` | `P['min_x']` | Minimum value |
-| `max_` | `P['max_x']` | Maximum value |
-| `ptp_` | `P['ptp_x']` | Peak-to-peak (max - min) |
-| `delta_` | `P['delta_x']` | Value minus mean |
-| `cov_X__Y` | `P['cov_x__px']` | Covariance element |
+| Prefix     | Example          | Computes                 |
+| ---------- | ---------------- | ------------------------ |
+| `sigma_`   | `P['sigma_x']`   | Standard deviation       |
+| `mean_`    | `P['mean_x']`    | Weighted average         |
+| `min_`     | `P['min_x']`     | Minimum value            |
+| `max_`     | `P['max_x']`     | Maximum value            |
+| `ptp_`     | `P['ptp_x']`     | Peak-to-peak (max - min) |
+| `delta_`   | `P['delta_x']`   | Value minus mean         |
+| `cov_X__Y` | `P['cov_x__px']` | Covariance element       |
 
 These derived quantities do not need individual entries in the YAML file, as their units and labels are computed automatically from the base quantity.
 

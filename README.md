@@ -38,7 +38,7 @@ To create a new conda environment using this file, do the following:
 ```bash
 git clone https://github.com/ChristopherMayes/openPMD-beamphysics
 cd openPMD-beamphysics
-conda env create -n pmd_beamphysics-dev -f environment.yml
+conda env create -n beamphysics-dev -f environment.yml
 conda activate beamphysics-dev
 python -m pip install --no-deps -e .
 ```
@@ -50,6 +50,6 @@ git clone https://github.com/ChristopherMayes/openPMD-beamphysics
 cd openPMD-beamphysics
 
 python -m venv beamphysics-venv
-source pmd_beamphysics-venv/bin/activate
+source beamphysics-venv/bin/activate
 python -m pip install -e .
 ```

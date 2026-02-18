@@ -22,8 +22,8 @@ from ..impedance import ImpedanceWakefield
 from .base import (
     Geometry,
     ResistiveWallWakefieldBase,
-    longitudinal_impedance_round,
     longitudinal_impedance_flat,
+    longitudinal_impedance_round,
 )
 
 __all__ = ["ResistiveWallWakefield"]

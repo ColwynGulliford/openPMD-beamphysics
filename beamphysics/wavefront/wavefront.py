@@ -1,31 +1,28 @@
 from __future__ import annotations
+
+import pathlib
 from abc import ABC, abstractmethod
-from enum import Enum
-from dataclasses import dataclass, replace
 from copy import deepcopy
-from typing import Union, ClassVar
-
+from dataclasses import dataclass, replace
+from enum import Enum
 from math import pi
-import numpy as np
-from numpy.fft import fftfreq, fftshift, ifftshift, ifftn
-
-from scipy.constants import epsilon_0, c, e, hbar
+from typing import ClassVar, Union
 
 import h5py
-import pathlib
-
 import matplotlib.pyplot as plt
+import numpy as np
 from matplotlib.colors import LogNorm
+from numpy.fft import fftfreq, fftshift, ifftn, ifftshift
+from scipy.constants import c, e, epsilon_0, hbar
 
-from pmd_beamphysics.statistics import mean_calc, mean_variance_calc
-from pmd_beamphysics.plot import plot_1d_density, plot_2d_density_with_marginals
-from pmd_beamphysics.units import Z0, c_light
-from pmd_beamphysics.interfaces.genesis import (
-    wavefront_write_genesis4,
+from ..interfaces.genesis import (
     load_genesis4_fields,
+    wavefront_write_genesis4,
 )
-
-from pmd_beamphysics.wavefront.propagators import drift_wavefront
+from ..plot import plot_1d_density, plot_2d_density_with_marginals
+from ..statistics import mean_calc, mean_variance_calc
+from ..units import Z0, c_light
+from ..wavefront.propagators import drift_wavefront
 
 
 def fftfreq_max(n, d=1.0):

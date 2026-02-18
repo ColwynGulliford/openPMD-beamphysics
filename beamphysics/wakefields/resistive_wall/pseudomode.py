@@ -12,8 +12,8 @@ ResistiveWallPseudomode
 
 from __future__ import annotations
 
-from dataclasses import dataclass
 import warnings
+from dataclasses import dataclass
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -21,13 +21,13 @@ import numpy as np
 from ...units import epsilon_0
 from ..pseudomode import Pseudomode, PseudomodeWakefield
 from .base import (
-    Geometry,
-    ResistiveWallWakefieldBase,
     Gammaf,
-    krs0_round,
-    krs0_flat,
-    Qr_round,
+    Geometry,
     Qr_flat,
+    Qr_round,
+    ResistiveWallWakefieldBase,
+    krs0_flat,
+    krs0_round,
 )
 
 __all__ = ["ResistiveWallPseudomode"]

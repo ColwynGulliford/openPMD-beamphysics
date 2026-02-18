@@ -8,7 +8,7 @@ docs/api/statistics_standard.md
 docs/api/computed_statistics.md
 
 # Generated computed statistics (runtime-generated)
-pmd_beamphysics/standards/computed_statistics.yaml
+beamphysics/standards/computed_statistics.yaml
 
 # C extensions
 *.so
@@ -114,4 +114,4 @@ venv.bak/
 .mypy_cache/
 .DS_Store
 
-/pmd_beamphysics/_version.py
+/beamphysics/_version.py
