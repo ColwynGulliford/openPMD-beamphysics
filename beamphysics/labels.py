@@ -76,7 +76,7 @@ def texlabel(key: str):
     Parameters
     ----------
     key : str
-        any pmd_beamphysics attribute
+        any beamphysics attribute
 
     Returns
     -------
@@ -144,14 +144,14 @@ def mathlabel(*keys, units=None, tex=True):
     Parameters
     ----------
     *keys : str
-        any pmd_beamphysics attributes
+        any beamphysics attributes
 
     units : pmd_unit or str or None
         units to be cast to str.
 
     tex : bool, default=True
         if True, a mathtext (TeX) string wrapped in $$ will be returned.
-        Uses pmd_beamphysics.labels.texlabel to get a proper label
+        Uses `beamphysics.labels.texlabel` to get a proper label
 
     Returns
     -------

@@ -1,6 +1,8 @@
-import pytest
+from typing import Literal, Union
+
 import numpy as np
-from typing import Union, Literal
+import pytest
+
 from .particles import ParticleGroup
 
 
