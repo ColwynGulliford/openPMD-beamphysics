@@ -2,7 +2,7 @@ import functools
 import os
 import pathlib
 from copy import deepcopy
-from typing import Union, Sequence
+from typing import Sequence, Union
 
 import numpy as np
 from h5py import File
@@ -18,12 +18,11 @@ from .interfaces.genesis import (
     write_genesis4_distribution,
 )
 from .interfaces.gpt import write_gpt
-from .interfaces.impact import write_impact
 from .interfaces.litrack import write_litrack
 from .interfaces.lucretia import write_lucretia
 from .interfaces.opal import write_opal
 from .interfaces.simion import write_simion
-from .plot import density_plot, marginal_plot, slice_plot
+from .plot import density_plot, marginal_plot, slice_plot, wakefield_plot
 from .readers import particle_array, particle_paths
 from .species import charge_of, mass_of
 from .statistics import (
@@ -36,8 +35,9 @@ from .statistics import (
     slice_statistics,
 )
 from .units import c_light, parse_bunching_str, pg_units
-from .writers import pmd_init, write_pmd_bunch
 from .utils import get_rotation_matrix
+from .wakefields import WakefieldBase
+from .writers import pmd_init, write_pmd_bunch
 
 # -----------------------------------------
 # Classes
@@ -190,6 +190,10 @@ class ParticleGroup:
                     assert len(pp) == 1, f"Number of particle paths in {h5}: {len(pp)}"
                     data = load_bunch_data(hh5[pp[0]])
 
+            elif isinstance(h5, File):
+                pp = particle_paths(h5)
+                assert len(pp) == 1, f"Number of particle paths in {h5}: {len(pp)}"
+                data = load_bunch_data(h5[pp[0]])
             else:
                 # Try dict
                 data = load_bunch_data(h5)
@@ -951,6 +955,8 @@ class ParticleGroup:
         include_header=True,
         verbose=False,
     ):
+        from .interfaces.impact import write_impact
+
         return write_impact(
             self,
             filePath,
@@ -978,16 +984,53 @@ class ParticleGroup:
         return write_opal(self, filePath, verbose=verbose, dist_type=dist_type)
 
     # openPMD
-    def write(self, h5, name=None):
+    def write(self, h5, name=None) -> None:
         """
-        Writes to an open h5 handle, or new file if h5 is a str.
+        Write particle data to an HDF5 file or group in openPMD format.
 
+        Parameters
+        ----------
+        h5 : str or pathlib.Path or h5py.File or h5py.Group
+            Target for writing:
+            - str or pathlib.Path: path to a new HDF5 file to be created (opened in mode "w").
+              Environment variables in path strings are expanded (via
+              os.path.expandvars) before file creation.
+            - h5py.File: an already opened file handle; a new "particles" group is created.
+            - h5py.Group: an existing group; assumed to be an appropriate location to write data.
+                This is for advanced users who know what they are doing.
+                Any other object is treated as a group-like handle compatible with `write_pmd_bunch`.
+        name : str, optional
+            Name for the subgroup/bunch written inside the "particles" group (or provided group).
+            If None, `write_pmd_bunch` will write directly to the "particles" group.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
+        Write to a new file:
+        >>> P.write("beam.h5")
+
+        Write to an already opened file:
+        >>> import h5py
+        >>> with h5py.File("beam.h5", "w") as f:
+        ...     P.write(f)
+
+        Write into an existing group and name the bunch:
+        >>> import h5py
+        >>> with h5py.File("beam.h5", "w") as f:
+        ...     grp = f["particles"]
+        ...     particles.write(grp, name="bunch1")
         """
         if isinstance(h5, (str, pathlib.Path)):
             fname = os.path.expandvars(h5)
             g = File(fname, "w")
             pmd_init(g, basePath="/", particlesPath="particles")
             g = g.create_group("particles")
+        elif isinstance(h5, File):
+            pmd_init(h5, basePath="/", particlesPath="particles")
+            g = h5.create_group("particles")
         else:
             g = h5
 
@@ -1142,6 +1185,129 @@ class ParticleGroup:
 
         if return_figure:
             return fig
+
+    def apply_wakefield(
+        self,
+        wakefield: WakefieldBase,
+        length: float,
+        inplace: bool = False,
+        include_self_kick: bool = True,
+    ):
+        """
+        Apply wakefield momentum kicks to this ParticleGroup.
+
+        Parameters
+        ----------
+        wakefield : WakefieldBase
+            A wakefield object providing the `particle_kicks(z, weight)` method.
+        length : float
+            Length over which the wakefield acts [m].
+        inplace : bool, optional
+            If True, modifies in place. If False, returns a modified copy.
+            Default is False.
+        include_self_kick : bool, optional
+            Whether to include the self-kick term. Default is True.
+
+        Returns
+        -------
+        ParticleGroup or None
+            Modified ParticleGroup if inplace=False, otherwise None.
+
+        Examples
+        --------
+        ::
+
+            from beamphysics.wakefields import ResistiveWallWakefield
+            wake = ResistiveWallWakefield.from_material("copper-slac-pub-10707", radius=2.5e-3)
+            P_after = P.apply_wakefield(wake, length=10.0)
+        """
+        if not inplace:
+            P = self.copy()
+        else:
+            P = self
+
+        # Extract z positions
+        if P.in_t_coordinates:
+            z = np.asarray(P.z)
+        else:
+            z = -c_light * np.asarray(P.t)
+
+        weight = np.asarray(P.weight)
+        kicks = wakefield.particle_kicks(z, weight, include_self_kick=include_self_kick)
+        P.pz += kicks * length
+
+        if not inplace:
+            return P
+
+    def wakefield_plot(
+        self,
+        wake: WakefieldBase,
+        key=None,
+        nice=True,
+        ax=None,
+        xlim=None,
+        ylim=None,
+        tex=True,
+        bins=None,
+        **kwargs,
+    ):
+        """
+        Plot per-particle wakefield kicks overlaid with the bunch density.
+
+        This function overlays the computed wakefield kicks (in eV/m) as a scatter plot on
+        the primary y-axis, and the corresponding particle density as a histogram on a
+        secondary y-axis. The independent variable is chosen automatically based on the
+        coordinate system or specified explicitly with `key`.
+
+        Parameters
+        ----------
+        wake : WakefieldBase
+            A wakefield object providing the `particle_kicks(z, weight)` method,
+            returning longitudinal wakefield kicks in eV/m.
+
+        key : str, optional
+            Key to use as the independent variable. If None, defaults to 'delta_z/c' or 'delta_t'
+            depending on `particle_group.in_t_coordinates`.
+
+        nice : bool, default=True
+            If True, applies unit-aware scaling using SI prefixes (e.g., mm, ns).
+
+        ax : matplotlib.axes.Axes, optional
+            An existing Axes to plot into. If None, a new figure and axes are created.
+
+        xlim : tuple of float, optional
+            Limits to apply to the x-axis, in native units.
+
+        ylim : tuple of float, optional
+            Limits to apply to the y-axis (wakefield kick), in native units.
+
+        tex : bool, default=True
+            Whether to use TeX-style math formatting for labels.
+
+        bins : int or str, optional
+            Number of bins to use for the density histogram.
+
+        kwargs : dict
+            Additional keyword arguments passed to `plt.subplots()` if a new axis is created.
+
+        Returns
+        -------
+        fig : matplotlib.figure.Figure
+            The matplotlib figure containing the plot.
+        """
+
+        wakefield_plot(
+            self,
+            wake,
+            key=key,
+            nice=nice,
+            ax=ax,
+            xlim=xlim,
+            ylim=ylim,
+            tex=tex,
+            bins=bins,
+            **kwargs,
+        )
 
     # New constructors
     def split(self, n_chunks=100, key="z"):

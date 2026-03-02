@@ -20,6 +20,13 @@ nav:
           - examples/fields/field_conversion.ipynb
           - examples/fields/corrector_modeling.ipynb
           - examples/fields/solenoid_modeling.ipynb
+      - Wakefields:
+          - examples/wakefields/resistive_wall.ipynb
+          - examples/wakefields/impedance_wakefield.ipynb
+      - Wavefront:
+          - examples/wavefront/wavefront.ipynb
+          - examples/wavefront/advanced_drift.ipynb
+          - examples/wavefront/experimental_pytorch_wavefront.ipynb
       - Utilities:
           - examples/units.ipynb
           - examples/labels.ipynb
@@ -27,6 +34,14 @@ nav:
   - API:
       - Particles: api/particles.md
       - Fields: api/fields.md
+      - Wakefields: api/wakefields.md
+
+  - Standards:
+      - Statistics Standard: api/statistics_standard.md
+      - Computed Statistics: api/computed_statistics.md
+
+  - Contributing:
+      - Statistics Schema: statistics_schema.md
 
 theme:
   icon:
@@ -38,6 +53,7 @@ theme:
     - navigation.top
     - navigation.tabs
     - navigation.indexes
+    - content.code.copy
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
@@ -53,6 +69,7 @@ theme:
         name: Switch to light mode
 
 markdown_extensions:
+  - attr_list
   - pymdownx.highlight
   - pymdownx.superfences
   - pymdownx.arithmatex: # Enable MathJAX https://squidfunk.github.io/mkdocs-material/reference/mathjax/
@@ -108,6 +125,3 @@ plugins:
             show_submodules: false
             group_by_category: true
             unwrap_annotated: true
-            import:
-              - https://docs.python.org/3/objects.inv
-              - https://docs.h5py.org/en/stable/objects.inv
