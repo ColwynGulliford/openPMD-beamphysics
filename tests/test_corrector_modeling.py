@@ -1,5 +1,5 @@
-from pmd_beamphysics.fields.corrector_modeling import make_thin_straight_wire_fieldmesh
-from pmd_beamphysics.fields.corrector_modeling import bfield_from_thin_straight_wire
+from beamphysics.fields.corrector_modeling import make_thin_straight_wire_fieldmesh
+from beamphysics.fields.corrector_modeling import bfield_from_thin_straight_wire
 from scipy.constants import mu_0 as u0
 import numpy as np
 
